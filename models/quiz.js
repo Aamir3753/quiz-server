@@ -1,17 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const optionSchema = new Schema({
-    optionName: {
-        type: String,
-        required: true
-    },
-    option: {
-        type: String,
-        required: true
-    }
-}, { _id: false });
-
 const questionSchema = new Schema({
     question: {
         type: String,
@@ -22,7 +11,7 @@ const questionSchema = new Schema({
         required: true
     },
     options: {
-        type: [optionSchema],
+        type: [String],
         required: true,
     },
     answer: {
@@ -36,7 +25,7 @@ questionSchema.path("options").validate(function (options) {
     return true;
 }, "Questions should have more than one option");
 questionSchema.path("answer").validate(function (answer) {
-    if (answer.length === 0 || answer.length >= 1) return false;
+    if (answer.length === 0) return false;
     return true;
 }, "Questions should have one or more than one answer");
 const quizSchema = new Schema({

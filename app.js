@@ -13,6 +13,7 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
 
 
 var quizRouter = require("./routes/quizRouter");
+var startRouter = require("./routes/startRouter");
 var indexRouter = require('./routes/index');
 
 var app = express();
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use("/quiz",quizRouter);
+app.use("/start",startRouter)
 
 
 
