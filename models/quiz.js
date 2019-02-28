@@ -40,6 +40,10 @@ const quizSchema = new Schema({
     questions: {
         type: [questionSchema],
         required: true,
+    },
+    passingScore:{
+        type:Number,
+        required:true,
     }
 })
 

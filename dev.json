@@ -1,6 +1,7 @@
 {
     "title": "test",
     "description": "test",
+    "passingScore": 60,
     "questions": [
         {
             "question": "How many hands we have ?",
@@ -24,6 +25,24 @@
                 "4",
                 "5"
             ],
+            "answer": [
+                "5"
+            ]
+        }
+    ]
+}
+
+{
+    "quizId": "5c78142c486072325478e4f0",
+    "answers": [
+        {
+            "questionId": "5c78142c486072325478e4f2",
+            "answer": [
+                "4"
+            ]
+        },
+        {
+            "questionId": "5c78142c486072325478e4f1",
             "answer": [
                 "5"
             ]

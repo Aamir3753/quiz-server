@@ -2,20 +2,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const resultSchema = new Schema({
-    rightAnswers: {
-        type: Number,
-        required: true,
-        default: 0
-    },
     wrongAnswers: {
-        type: Number,
+        type: [String],
         required: true,
-        default: 0
     },
     obtainedPercentage: {
         type: Number,
         required: true,
         default: 0
+    },
+    result: {
+        type: Boolean,
+        required: true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

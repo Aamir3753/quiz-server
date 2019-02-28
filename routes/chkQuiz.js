@@ -1,45 +1,68 @@
 const Quizes = require("../models/quiz");
-const chkQuiz = (solvedQuiz) => {
-    Quizes.findById(solvedQuiz._id)
+const chkQuiz = (solvedQuiz, res, next) => {
+    Quizes.findById(solvedQuiz.quizId)
         .select("questions")
         .exec((err, quiz) => {
-            if (err) return { err: err }
+            if (err) return next(err);
             else if (!quiz) {
                 let err = new Error("Quiz not found");
-                return { err: err };
+                return next(err);
             }
             else if (!quiz.questions.length) {
                 let err = new Error("Questions not found");
-                return { err: err };
+                return next(err);
             }
             else {
-                let totalWrongAnswers = 0
-                let totalRightAnswers = 0;
-                let quizPer = 0;
+                let quizMarks = 0;
+                let wrongQuestions = []
                 try {
-                    solvedQuiz.answers.map(answer => {
-                        let chkWrongAnswer = 0;
-                        let question = quiz.question.id(answer.questionId);
+                    solvedQuiz.answers.forEach(answer => {
+                        let question = quiz.questions.id(answer.questionId);
+                        debugger
                         let oneQuestionMarks = 1 / question.answer.length
-                        question.answer.forEach((rigthAnswer) => {
+                        debugger
+                        if (question.answer.length > 1) {
                             answer.answer.forEach(userAnswer => {
-                                if (rigthAnswer === userAnswer) {
-                                    quizPer = quizPer + oneQuestionMarks;
-                                    chkWrongAnswer++;
+                                if (question.answer.includes(userAnswer)) {
+                                    quizMarks += oneQuestionMarks;
+                                } else {
+                                    quizMarks -= oneQuestionMarks;
+                                    wrongQuestions.push(answer.questionId);
                                 }
-
                             })
-                        })
-                        if (chkWrongAnswer > 0) {
-                            totalWrongAnswers++;
-                        } else {
-                            totalRightAnswers++;
+                        }
+                        else {
+                            answer.answer.forEach(userAnswer => {
+                                if (question.answer.includes(userAnswer)) {
+                                    quizMarks++;
+                                } else {
+                                    wrongQuestions.push(answer.questionId);
+                                }
+                            })
                         }
                     })
+                    debugger
+                    res.setHeader("Content-Type", "application/json");
+                    res.statusCode = 200;
+                    res.json(
+                        {
+                            success: true,
+                            quizPer: (quizMarks * 100) / quiz.questions.length,
+                            wrongQuestions: wrongQuestions,
+                            quizId: solvedQuiz.quizId
+                        }
+                    )
                 }
                 catch (err) {
-
+                    console.log(err);
+                    debugger;
                 }
             }
         })
 }
+
+module.exports = chkQuiz;
+
+// it will take solved quiz which contains 
+// quizId  and an array of answer objects which contains
+// questionId and an array of answers.

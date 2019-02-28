@@ -7,7 +7,7 @@ var config = require("./config");
 
 // connecting to database
 mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
-  if (err)  return console.log(err);
+  if (err) return console.log(err);
   console.log("DB Successfully Connected")
 })
 
@@ -15,6 +15,7 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
 var quizRouter = require("./routes/quizRouter");
 var startRouter = require("./routes/startRouter");
 var indexRouter = require('./routes/index');
+var resultRouter = require("./routes/resultRouter");
 
 var app = express();
 
@@ -28,8 +29,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use("/quiz",quizRouter);
-app.use("/start",startRouter)
+app.use("/quiz", quizRouter);
+app.use("/start", startRouter)
+app.use("/result", resultRouter);
 
 
 
