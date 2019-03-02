@@ -1,26 +1,29 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const localMongoosePlugin = require("passport-local-mongoose");
 const userSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-    },
-    firstName: {
+    facebookId: String,
+    firstname: {
         type: String,
         required: true
     },
-    lastName: {
+    lastname: {
         type: String,
         required: true
+    },
+    img: {
+        type: String,
     },
     admin: {
         type: Boolean,
         default: false
     },
-    quizes: {
+    results: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "quiz",
-    },
+        ref: "Result",
+    }
 });
+
+userSchema.plugin(localMongoosePlugin);
 const Users = mongoose.model("User", userSchema);
 module.exports = Users;

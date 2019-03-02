@@ -49,3 +49,10 @@
         }
     ]
 }
+
+{
+    "firstname":"test",
+    "username":"test",
+    "lastname":"test",
+    "password":"test"
+}

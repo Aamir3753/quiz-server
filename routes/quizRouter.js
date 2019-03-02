@@ -1,6 +1,7 @@
 const express = require("express");
 const Router = express.Router();
 const Quizes = require("../models/quiz");
+const authenticate = require("../authenticate");
 
 // for adding deleting and getting quizes
 Router.route("/")
@@ -13,7 +14,7 @@ Router.route("/")
             res.json({ success: true, quizes: quizes });
         })
     })
-    .post((req, res, next) => {
+    .post(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         // for creating a quiz
         Quizes.create(req.body, (err, quiz) => {
             if (err) return next(err);
@@ -24,7 +25,7 @@ Router.route("/")
             }
         })
     })
-    .delete((req, res, next) => {
+    .delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         // for deleting all quizes
         Quizes.deleteMany({}, (err, result) => {
             if (err) return next(err);
@@ -57,7 +58,7 @@ Router.route("/:quizId")
             }
         })
     })
-    .post((req, res, next) => {
+    .post(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         // for adding a single question
         Quizes.findById(req.params.quizId, (err, quiz) => {
             if (err) return next(err);
@@ -73,7 +74,7 @@ Router.route("/:quizId")
             }
         })
     })
-    .delete((req, res, next) => {
+    .delete(authenticate.verifyUser, authenticate.verifyUser, (req, res, next) => {
         // for deleting a quiz
         Quizes.findByIdAndDelete(req.params.quizId, (err, result) => {
             if (err) return next(err);
@@ -84,10 +85,10 @@ Router.route("/:quizId")
             }
         })
     })
-    .put((req, res, next) => {
+    .put(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         // for updating a quiz
         Quizes.findOneAndUpdate({ _id: req.params.quizId },
-            { title: req.body.title, description: req.body.description },
+            { title: req.body.title, description: req.body.description, passingScore: req.body.passingScore },
             { new: true }, (err, quiz) => {
                 if (err) return next(err);
                 else {
@@ -99,7 +100,7 @@ Router.route("/:quizId")
     })
 
 Router.route("/:quizId/:questionId")
-    .put((req, res, next) => {
+    .put(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         // for updating a single question
         Quizes.findById(req.params.quizId, (err, quiz) => {
             if (err) return next(err);
@@ -124,7 +125,7 @@ Router.route("/:quizId/:questionId")
             }
         })
     })
-    .delete((req, res, next) => {
+    .delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         // for deleting a single question
         Quizes.findById(req.params.quizId, (err, quiz) => {
             if (err) return next(err);

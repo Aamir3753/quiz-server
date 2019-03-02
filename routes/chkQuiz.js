@@ -1,5 +1,8 @@
 const Quizes = require("../models/quiz");
-const chkQuiz = (solvedQuiz, res, next) => {
+const Results = require("../models/result");
+const chkQuiz = (req, res, next) => {
+    const solvedQuiz = req.body;
+    let passingScore = 0;
     Quizes.findById(solvedQuiz.quizId)
         .select("questions")
         .exec((err, quiz) => {
@@ -13,6 +16,7 @@ const chkQuiz = (solvedQuiz, res, next) => {
                 return next(err);
             }
             else {
+                passingScore = quiz.passingScore;
                 let quizMarks = 0;
                 let wrongQuestions = []
                 try {
@@ -42,20 +46,28 @@ const chkQuiz = (solvedQuiz, res, next) => {
                         }
                     })
                     debugger
-                    res.setHeader("Content-Type", "application/json");
-                    res.statusCode = 200;
-                    res.json(
+                    Results.findOneAndUpdate(
+                        { quiz: solvedQuiz.quizId },
                         {
-                            success: true,
-                            quizPer: (quizMarks * 100) / quiz.questions.length,
-                            wrongQuestions: wrongQuestions,
-                            quizId: solvedQuiz.quizId
-                        }
+                            obtainedPercentage: (quizMarks * 100) / quiz.questions.length,
+                            wrongAnswers: wrongQuestions,
+                            result: passingScore > (quizMarks * 100) / quiz.questions.length
+                        },
+                        { new: true }
                     )
+                        .then((result) => {
+                            res.setHeader("Content-Type", "application/json");
+                            res.statusCode = 200;
+                            res.json(
+                                {
+                                    success: true,
+                                    result: result
+                                }
+                            )
+                        })
                 }
                 catch (err) {
-                    console.log(err);
-                    debugger;
+                    next(err);
                 }
             }
         })
@@ -66,3 +78,4 @@ module.exports = chkQuiz;
 // it will take solved quiz which contains 
 // quizId  and an array of answer objects which contains
 // questionId and an array of answers.
+

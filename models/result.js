@@ -5,6 +5,7 @@ const resultSchema = new Schema({
     wrongAnswers: {
         type: [String],
         required: true,
+        default:[]
     },
     obtainedPercentage: {
         type: Number,
@@ -13,15 +14,18 @@ const resultSchema = new Schema({
     },
     result: {
         type: Boolean,
-        required: true
+        required: true,
+        default:false
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required:true,
     },
     quiz: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Quiz"
+        ref: "Quiz",
+        require:true
     }
 });
 const Results = mongoose.model("Result", resultSchema);

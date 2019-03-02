@@ -44,6 +44,7 @@ const quizSchema = new Schema({
     passingScore:{
         type:Number,
         required:true,
+        max:100
     }
 })
 
