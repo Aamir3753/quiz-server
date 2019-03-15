@@ -19,7 +19,7 @@ const userSchema = new Schema({
     },
     gender: {
         type: String,
-        required
+        required:true
     },
     results: {
         type: mongoose.Schema.Types.ObjectId,
