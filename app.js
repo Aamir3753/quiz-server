@@ -4,6 +4,8 @@ var path = require('path');
 var logger = require('morgan');
 var mongoose = require("mongoose");
 var config = require("./config");
+var cors = require('cors')
+
 
 // connecting to database
 mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
@@ -19,6 +21,7 @@ var resultRouter = require("./routes/resultRouter");
 var userRouter = require("./routes/users");
 
 var app = express();
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,9 +57,9 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.statusCode = err.status || 500
+  res.setHeader("Content-Type", 'application/json');
+  res.json({ err: err, success: false })
 });
 
 module.exports = app;
