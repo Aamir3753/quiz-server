@@ -7,7 +7,14 @@ const authenticate = require("../authenticate");
 Router.route("/")
     .get((req, res, next) => {
         // for getting all the quizes
-        Quizes.find({}).select("title description").exec((err, quizes) => {
+        if (req.query.title) {
+            req.query.title = {
+                $regex: req.query.title,
+                $options: "$i"
+            }
+
+        }
+        Quizes.find(req.query).select("title description").exec((err, quizes) => {
             if (err) return next(err);
             res.setHeader("Content-Type", "application/json");
             res.statusCode = 200;
@@ -51,7 +58,8 @@ Router.route("/:quizId")
                         quizDetail: {
                             title: quiz.title,
                             description: quiz.description,
-                            totalQuestions: quiz.questions.length
+                            totalQuestions: quiz.questions.length,
+                            passingScore: quiz.passingScore
                         }
                     }
                 );

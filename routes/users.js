@@ -5,12 +5,13 @@ const passport = require("passport");
 const authenticate = require("../authenticate");
 
 Router.post("/signup", (req, res, next) => {
-  const { username, password, firstname, lastname } = req.body;
+  const { username, password, firstname, lastname ,gender} = req.body;
   Users.register(new Users({
     username,
     password,
     firstname,
-    lastname
+    lastname,
+    gender
   }), req.body.password, (err, user) => {
     if (err) return next(err);
     else {
