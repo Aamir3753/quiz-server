@@ -56,6 +56,7 @@ Router.route("/:quizId")
                     {
                         success: true,
                         quizDetail: {
+                            _id:quiz._id,
                             title: quiz.title,
                             description: quiz.description,
                             totalQuestions: quiz.questions.length,

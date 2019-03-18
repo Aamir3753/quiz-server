@@ -8,12 +8,12 @@ var cors = require('cors')
 
 
 // connecting to database
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
   if (err) return console.log(err);
   console.log("DB Successfully Connected")
 })
-
-
 var quizRouter = require("./routes/quizRouter");
 var startRouter = require("./routes/startRouter");
 var indexRouter = require('./routes/index');
@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ limit:"50mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 

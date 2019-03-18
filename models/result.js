@@ -14,8 +14,7 @@ const resultSchema = new Schema({
     },
     result: {
         type: Boolean,
-        required: true,
-        default:false
+        required:true,
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -27,6 +26,6 @@ const resultSchema = new Schema({
         ref: "Quiz",
         require:true
     }
-});
+},{timestamps:true});
 const Results = mongoose.model("Result", resultSchema);
 module.exports = Results

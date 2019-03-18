@@ -4,7 +4,7 @@ const chkQuiz = (req, res, next) => {
     const solvedQuiz = req.body;
     let passingScore = 0;
     Quizes.findById(solvedQuiz.quizId)
-        .select("questions")
+        .select("questions passingScore")
         .exec((err, quiz) => {
             if (err) return next(err);
             else if (!quiz) {
@@ -22,9 +22,7 @@ const chkQuiz = (req, res, next) => {
                 try {
                     solvedQuiz.answers.forEach(answer => {
                         let question = quiz.questions.id(answer.questionId);
-                        debugger
                         let oneQuestionMarks = 1 / question.answer.length
-                        debugger
                         if (question.answer.length > 1) {
                             answer.answer.forEach(userAnswer => {
                                 if (question.answer.includes(userAnswer)) {
@@ -45,13 +43,12 @@ const chkQuiz = (req, res, next) => {
                             })
                         }
                     })
-                    debugger
                     Results.findOneAndUpdate(
                         { quiz: solvedQuiz.quizId },
                         {
-                            obtainedPercentage: (quizMarks * 100) / quiz.questions.length,
+                            obtainedPercentage: (quizMarks * 100) / quiz.questions.length < 0 ? 0:(quizMarks * 100) / quiz.questions.length,
                             wrongAnswers: wrongQuestions,
-                            result: passingScore > (quizMarks * 100) / quiz.questions.length
+                            result: passingScore >= ((quizMarks * 100) / quiz.questions.length) ? "false" : "true",
                         },
                         { new: true }
                     )
