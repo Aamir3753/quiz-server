@@ -28,9 +28,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
-app.use(express.json({ limit:"50mb" }));
+app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', indexRouter);
 app.use("/quiz", quizRouter);
@@ -59,6 +60,7 @@ app.use(function (err, req, res, next) {
 
   res.statusCode = err.status || 500
   res.setHeader("Content-Type", 'application/json');
+
   res.json({ err: err, success: false })
 });
 

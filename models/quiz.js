@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
+
 const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
@@ -41,14 +43,14 @@ const quizSchema = new Schema({
         type: [questionSchema],
         required: true,
     },
-    passingScore:{
-        type:Number,
-        required:true,
-        max:100
+    passingScore: {
+        type: Number,
+        required: true,
+        max: 100
     }
 })
 
-
+quizSchema.plugin(mongoosePaginate);
 const Quizes = mongoose.model("Quiz", quizSchema);
 
 module.exports = Quizes;

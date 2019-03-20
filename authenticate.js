@@ -3,7 +3,7 @@ const localStrategy = require("passport-local").Strategy;
 const jwtStrategy = require("passport-jwt").Strategy;
 const extractJwt = require("passport-jwt").ExtractJwt;
 const jwt = require("jsonwebtoken");
-const facebookStrategy = require("passport-facebook").Strategy;
+const facebookStrategy = require("passport-facebook-token");
 const config = require("./config");
 
 const Users = require("./models/user");
@@ -28,13 +28,17 @@ passport.use(new jwtStrategy(
 passport.use(new facebookStrategy({
     clientID: config.facebook.appId,
     clientSecret: config.facebook.facebookSecret
-}, (accessToken, refreshToken, profile, done) => {
+}, (accessToken, refreshToken, profile, done, ) => {
     Users.findOne({ facebook: profile.id }, (err, user) => {
         if (err) return done(err, false);
+        console.log(profile.id);
         if (!user) {
-            const user = new Users({ facebook: facebook.id });
+            const user = new Users({ facebook: profile.id });
+            user.username = profile.emails[0].value||profile.id
             user.firstname = profile.name.givenName;
             user.lastname = profile.name.familyName;
+            user.gender = profile.gender;
+            user.img = profile.photos[0].value
             user.save((err, user) => {
                 if (err) return done(err, false);
                 done(null, user);

@@ -3,7 +3,7 @@ const config = {
     secretKey: "12345-12345",
     facebook: {
         appId: "389434655167734",
-        facebookSecret: "f3e5065040a3f8ff3fb9f4f43213560d"
+        facebookSecret: "c238d23ec852098278f177524faced50"
     }
 }
 module.exports = config;

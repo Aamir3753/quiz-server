@@ -3,6 +3,26 @@ const Router = express.Router();
 const Quizes = require("../models/quiz");
 const authenticate = require("../authenticate");
 
+// Getting quizes with support of pagination
+Router.route("/withPagination/:page")
+    .get((req, res, next) => {
+        let page = req.params.page;
+        if (page == 0) {
+            let err = new Error("Page can not be zero");
+            next(err);
+            return
+        }
+        Quizes.paginate({}, {
+            page,
+            limit: 12,
+            select: "title description"
+        }, (err, result) => {
+            if (err) return next(err);
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
+            res.json({ success: true, quizes: result })
+        })
+    })
 // for adding deleting and getting quizes
 Router.route("/")
     .get((req, res, next) => {
@@ -56,7 +76,7 @@ Router.route("/:quizId")
                     {
                         success: true,
                         quizDetail: {
-                            _id:quiz._id,
+                            _id: quiz._id,
                             title: quiz.title,
                             description: quiz.description,
                             totalQuestions: quiz.questions.length,

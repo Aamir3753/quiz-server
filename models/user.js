@@ -18,8 +18,10 @@ const userSchema = new Schema({
         default: false
     },
     gender: {
-        type: String,
-        required:true
+        type: String
+    },
+    facebook: {
+        type: String
     },
     results: {
         type: mongoose.Schema.Types.ObjectId,
