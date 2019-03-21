@@ -31,7 +31,6 @@ passport.use(new facebookStrategy({
 }, (accessToken, refreshToken, profile, done, ) => {
     Users.findOne({ facebook: profile.id }, (err, user) => {
         if (err) return done(err, false);
-        console.log(profile.id);
         if (!user) {
             const user = new Users({ facebook: profile.id });
             user.username = profile.emails[0].value||profile.id

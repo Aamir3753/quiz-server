@@ -53,10 +53,7 @@ Router.post("/login", (req, res, next) => {
   })(req, res, next);
 })
 
-Router.get("/facebook/login",(req, res, next) => {
-  console.log(req.header("Authorization"))
-  next();
-}, passport.authenticate("facebook-token",{session:false}), (req, res, next) => {
+Router.get("/facebook/login", passport.authenticate("facebook-token",{session:false}), (req, res, next) => {
   const token = authenticate.getToken({ _id: req.user._id, username: req.user.username, firstname: req.user.firstname, lastname: req.user.lastname, img: req.user.img });
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");

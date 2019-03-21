@@ -19,6 +19,8 @@ var startRouter = require("./routes/startRouter");
 var indexRouter = require('./routes/index');
 var resultRouter = require("./routes/resultRouter");
 var userRouter = require("./routes/users");
+var userDetailRouter = require("./routes/userDetail");
+var resetPasswordRouter = require("./routes/resetPasswordRouter")
 
 var app = express();
 app.use(cors())
@@ -38,6 +40,8 @@ app.use("/quiz", quizRouter);
 app.use("/start", startRouter)
 app.use("/result", resultRouter);
 app.use("/user", userRouter);
+app.use("/userDetail", userDetailRouter);
+app.use("/resetPassword", resetPasswordRouter);
 
 
 
@@ -55,6 +59,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  console.log(err);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
