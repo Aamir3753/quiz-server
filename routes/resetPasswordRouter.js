@@ -15,10 +15,10 @@ const oauth2Client = new OAuth2(
     "https://developers.google.com/oauthplayground"
 );
 
+
 oauth2Client.setCredentials({
     refresh_token: config.google.refreshToken
-});
-
+})
 
 Router.post("/setPassword", (req, res, next) => {
     jwt.verify(req.body.token, config.secretKey, { ignoreExpiration: false }, (err, payload) => {
@@ -33,9 +33,9 @@ Router.post("/setPassword", (req, res, next) => {
             }
             user.setPassword(req.body.password, (err, result) => {
                 if (err) return next(err);
-                user.save((err)=>{
-                    if(err) return next(err);
-                    res.json({success:true,password:"Password reset done!"})
+                user.save((err) => {
+                    if (err) return next(err);
+                    res.json({ success: true, password: "Password reset done!" })
                 })
             })
         })
@@ -43,6 +43,8 @@ Router.post("/setPassword", (req, res, next) => {
 })
 
 Router.post("/sendLink", (req, res, next) => {
+
+
 
     Users.findOne({ username: req.body.email }, async (err, user) => {
         if (err) return next(err);
@@ -61,7 +63,12 @@ Router.post("/sendLink", (req, res, next) => {
             return;
         }
         const passwordResetToken = jwt.sign({ _id: user._id }, config.secretKey, { expiresIn: 900 })
-        const tokens = await oauth2Client.refreshAccessToken()
+
+
+        let handleErorr = undefined;
+        const tokens = await oauth2Client.refreshAccessToken().catch(err => handleErorr = err)
+        if (handleErorr) return next(handleErorr);
+
         const accessToken = tokens.credentials.access_token
         const email = req.body.email;
         const mailOptions = {

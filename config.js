@@ -1,5 +1,5 @@
 const config = {
-    dbUrl: "mongodb://localhost:27017/QuizDB",
+    dbUrl: "mongodb+srv://aamir:123456abcdef@quizdb-alt6o.mongodb.net/test?retryWrites=true",
     secretKey: "12345-12345",
     facebook: {
         appId: "389434655167734",

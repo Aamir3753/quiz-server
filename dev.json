@@ -1,36 +1,129 @@
 {
-    "title": "test",
-    "description": "test",
+    "title": "Pakistan Current Affairs MCQs",
+    "description": "Pakistan Current Affairs MCQs 2019. Pakistan Current Affairs sample test and practice questions for job Test. Current Affairs of Pakistan, first in Pakistan, Important issues, current govt etc. Here you will find updated 2017-2018-2019 Current affairs of Pakistan Mcqs.",
     "passingScore": 60,
     "questions": [
         {
-            "question": "How many hands we have ?",
+            "question": "Who has been Appointed as Chairman of Kashmir Committee in Pakistan?",
             "isMultiselect": "false",
             "options": [
-                "2",
-                "3",
-                "4",
-                "5"
+                "Amjid Ali Khan Niazi",
+                "Nadeem Afzal Chan",
+                "Fakhar Imam",
+                "Ammir Sultan Cheema"
             ],
             "answer": [
-                "2"
+                "Fakhar Imam"
             ]
         },
         {
-            "question": "How many provinces of pakistan?",
+            "question": "Who is the Current Minister of Information and Culture in Punjab?",
             "isMultiselect": "false",
             "options": [
-                "2",
-                "3",
-                "4",
-                "5"
+                "Fayaz ul Hassan Chouhan",
+                "Aleem Khan",
+                "Syed Sumsam Ali Bukhari",
+                "Taimor Khan"
             ],
             "answer": [
-                "5"
+                "Syed Sumsam Ali Bukhari"
+            ]
+        },
+        {
+            "question": "Which Batsman has broken Shahid Afridi record of most sixes in international cricket?",
+            "isMultiselect": "false",
+            "options": [
+                "Chris Gayle",
+                "Sachin Tendulkar",
+                "Brian lara",
+                "Sir Vivian Richards"
+            ],
+            "answer": [
+                "Chris Gayle"
+            ]
+        },
+        {
+            "question": "Which of following Woman Lawmaker Chaired ‘Pakistan Senate’ on Women’s Day, 2019?",
+            "isMultiselect": "false",
+            "options": [
+                "Mehnaz Akbar",
+                "Krishna Kumari",
+                "Fehmida Mirza",
+                "Zubaida Jalal"
+            ],
+            "answer": [
+                "Krishna Kumari"
+            ]
+        },
+        {
+            "question": "Who is the captain of Peshawer Zalmi in PSL 2019?",
+            "isMultiselect": "false",
+            "options": [
+                "Fakhar Zamam",
+                "Sarfarz Ahmed",
+                "Darren Sammy",
+                "None of the above"
+            ],
+            "answer": [
+                "Darren Sammy"
+            ]
+        },
+        {
+            "question": "Who is the Captain of Quetta Gladiators in PSL 2019?",
+            "isMultiselect": "false",
+            "options": [
+                "Shane Watson",
+                "Sarfaraz Ahmed",
+                "Sunil Narine",
+                "Darren Sammy"
+            ],
+            "answer": [
+                "Sarfaraz Ahmed"
+            ]
+        },
+        {
+            "question": "Who became the first Pakistani surgeon to receive the prestigious honorary membership of the British Association of Urological Surgeons (BAUS)?",
+            "isMultiselect": "false",
+            "options": [
+                "Dr Arif Munir",
+                "Dr Adib Rizvi",
+                "Dr M. Usman Khan",
+                " Dr. Fawad Nasrullah"
+            ],
+            "answer": [
+                "Dr Adib Rizvi"
+            ]
+        },
+        {
+            "question": "Who is the First and only MMA (Mix Martial Arts) fighter from Pakistan, to register a victory in an international event “one warrior series of MMA”, held at Singapore, By beating Geeta Sohaar Sonu.",
+            "isMultiselect": "false",
+            "options": [
+                "Anita Karim",
+                "Ayesha Aziz",
+                "Marina Iqbal",
+                "Sana mir"
+            ],
+            "answer": [
+                "Anita Karim"
             ]
         }
     ]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {
     "quizId": "5c78142c486072325478e4f0",
@@ -51,8 +144,8 @@
 }
 
 {
-    "firstname":"test",
-    "username":"test",
-    "lastname":"test",
-    "password":"test"
+    "firstname": "test",
+    "username": "test",
+    "lastname": "test",
+    "password": "test"
 }
